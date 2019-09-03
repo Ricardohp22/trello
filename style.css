@@ -1,0 +1,29 @@
+
+.relative{
+    position: relative;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+.edit{
+    width: 100px;
+    background: rgb(240, 240, 240);
+    border-radius: 10px;
+    position: absolute;
+    top: 0px;
+    left: calc(100% + 25px);
+    box-shadow: 2px 2px 5px rgb(240, 240, 240);
+    display: none;
+    z-index: 2;
+}
+.show{
+    display: block;
+}
+.edit li{
+    padding: 10px;
+}
+.edit li:hover{
+    background: rgb(243, 243, 243);
+    cursor: pointer;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 mt-3 plantilla" v-for="(list, indexL) in lists">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <h4>{{list.name}}</h4>
+                            <button type="button" v-if="list.status == 'saved'" class="btn btn-sm btn-danger"
+                                @click="removeList(lists.indexOf(list))">
+                                Eliminar
+                            </button>
+                            <button type="button" v-if="list.status == 'creating'" class="btn btn-sm btn-warning"
+                                @click="removeList(lists.indexOf(list))">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- <form action="/"> -->
+                            <div class="form-group relative" v-for=" (card, indexC) in list.cards">
+                                <input type="text" @keyup.enter="addCard(list)" class="form-control" placeholder="Nombre de la tarjeta" v-model="card.title" @blur="hideEdit(indexL,indexC)" @click="showEdit(indexL,indexC)">
+                                <div class="edit">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" @click="editCard(indexL, indexC)">Editar</li>
+                                        <li class="list-group-item" @click="removeCard(indexL, indexC)">Eliminar</li>
+                                      </ul>
+                                </div>
+                            </div>
+                            <div v-if="list.status == 'creating'" class="form-group">
+                                <input type="text" class="form-control" placeholder="Nombre de la lista" @keyup.enter="saveList(list)" v-model="list.name">
+                            </div>
+                            <button type="button" @click="saveList(list)" v-if="list.status == 'creating'"
+                                class="btn btn-primary btn-block">
+                                Guardar
+                            </button>
+                            <button type="button" v-if="list.status == 'saved'" @click="addCard(list)"
+                                class="btn btn-success btn-block">
+                                Agregar tarjeta
+                            </button>
+                        <!-- </form> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mt-3">
+                <button class="btn rounded-0 btn-outline-dark btn-block" @click="addList">
+                    Agregar lista
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./clase.js"></script>
+</body>
+
+</html>
